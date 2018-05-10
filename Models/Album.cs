@@ -11,7 +11,7 @@ namespace primerKolokviumska2.Models
         public int Id { get; set; }
         public int GenreId { get; set; }
         public int ArtistId { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Vnesi naslov")]
         public string Title { get; set; }
         public decimal Price { get; set; }
         public string AlbumArtUrl { get; set; }

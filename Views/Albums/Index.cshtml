@@ -38,7 +38,7 @@
     {
         <tr>
             <td>
-                @Html.ActionLink(item.Name, "Details", new { id = item.Id }) |
+                @Html.ActionLink(item.Name, "Details", new { id = item.Id })
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Genre.Name)
@@ -55,9 +55,17 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
+            
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                @if (User.IsInRole("Administrator") || User.IsInRole("Editor"))
+    {
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) 
+}
+                @if (User.IsInRole("Administrator"))
+    {
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+
+}
             </td>
         </tr>
 }
@@ -67,7 +75,6 @@
 @section Scripts {
     <script>
         $(document).on("ready", function () {
-            alert("Uspesnascriptata");
             $("#albumsTable").dataTable();
         });
     </script>

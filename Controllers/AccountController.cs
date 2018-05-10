@@ -52,6 +52,32 @@ namespace primerKolokviumska2.Controllers
             }
         }
 
+        [Authorize(Roles = UserRole.Administrator)]
+        // GET: /Account/AddUserToRole
+        public ActionResult AddUserToRole()
+        {
+            var model = new AddUserToRoleModel();
+            return View(model);
+        }
+
+        [Authorize(Roles = UserRole.Administrator)]
+        [HttpPost]
+        // POST: /Account/AddUserToRole
+        public ActionResult AddUserToRole(AddUserToRoleModel model)
+        {
+            try
+            {
+                var user = UserManager.FindByEmail(model.Email);
+                UserManager.AddToRole(user.Id, model.SelectedRole);
+                return RedirectToAction("Index", "Home");
+            }
+            catch (Exception ex)
+            {
+                return HttpNotFound();
+
+            }
+        }
+
         //
         // GET: /Account/Login
         [AllowAnonymous]
